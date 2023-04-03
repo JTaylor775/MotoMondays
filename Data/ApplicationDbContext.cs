@@ -126,17 +126,21 @@ namespace MotoMondays.Data
             builder.Entity<Inventory>().Property(i => i.Miles).HasColumnType("decimal(18,2)");
 
             builder.Entity<Schedule>().HasData(
-                new Schedule(1, "MTWTF", "9-5", 12.50m),
-                new Schedule(2, "MWT", "8-4", 11.25m));
+                new Schedule(1, "MTWTF", "9-5", 12.50m, 1),
+                new Schedule(2, "MWT", "8-4", 11.25m, 2));
 
             builder.Entity<Inventory>().HasData(
-                new Inventory(1, 100m, false),
-                new Inventory(2, 12000m, true));
+                new Inventory(1, 12, 100m, false),
+                new Inventory(2, 27, 12000m, true));
 
             builder.Entity<MaintenanceTicket>().HasData(
                 new MaintenanceTicket(1, "Oil Change", DateTime.Parse("03/25/2023"), false, 2),
                 new MaintenanceTicket(2, "Tire Change", DateTime.Parse("03/25/2023"), true, 2),
                 new MaintenanceTicket(3, "Transmition rebuild", DateTime.Parse("03/17/2023"), false, 4));
+
+            builder.Entity<Motorcycle>().HasData(
+                new Motorcycle(12, "4S3YMHH68B2123456", "Yamaha", "YZF-R6","2006"),
+                new Motorcycle(27, "9B2SZKI72C3868341", "Suzuki", "GSXR600","2015"));
         }
     }
 }

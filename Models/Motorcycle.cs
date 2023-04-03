@@ -21,13 +21,13 @@ namespace MotoMondays.Models
         public string ModelType { get; set; }
         [Required(ErrorMessage = "Year is Required")]
         [DisplayName("Year")]
-        public DateTime Year { get; set; }
+        public string Year { get; set; }
 
         public Motorcycle()
         {
         }
 
-        public Motorcycle(int motorcycleId, string vINNumber, string manufacturer, string modelType, DateTime year)
+        public Motorcycle(int motorcycleId, string vINNumber, string manufacturer, string modelType, string year)
         {
             MotorcycleID = motorcycleId;
             VINNumber = vINNumber;
