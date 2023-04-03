@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MotoMondays.Data;
 using MotoMondays.Models;
 using System;
 using System.Collections.Generic;
@@ -12,9 +14,15 @@ namespace MotoMondays.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
+        private UserManager<User> _userManager;
+        private SignInManager<User> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
+            _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
             _logger = logger;
         }
 
