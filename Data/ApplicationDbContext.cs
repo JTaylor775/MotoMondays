@@ -134,13 +134,15 @@ namespace MotoMondays.Data
                 new Inventory(2, 27, 12000m, true));
 
             builder.Entity<MaintenanceTicket>().HasData(
-                new MaintenanceTicket(1, "Oil Change", DateTime.Parse("03/25/2023"), false, 2),
-                new MaintenanceTicket(2, "Tire Change", DateTime.Parse("03/25/2023"), true, 2),
-                new MaintenanceTicket(3, "Transmition rebuild", DateTime.Parse("03/17/2023"), false, 4));
+                new MaintenanceTicket(1, "Oil Change", DateTime.Parse("03/25/2023"), false, 2, 32),
+                new MaintenanceTicket(2, "Tire Change", DateTime.Parse("03/25/2023"), true, 2, 29),
+                new MaintenanceTicket(3, "Transmition rebuild", DateTime.Parse("03/17/2023"), false, 4, 29));
 
             builder.Entity<Motorcycle>().HasData(
                 new Motorcycle(12, "4S3YMHH68B2123456", "Yamaha", "YZF-R6","2006"),
-                new Motorcycle(27, "9B2SZKI72C3868341", "Suzuki", "GSXR600","2015"));
+                new Motorcycle(27, "9B2SZKI72C3868341", "Suzuki", "GSXR600","2015"),
+                new Motorcycle(32, "5A2HNDA56K1536846", "Honda", "CBR-500RR", "2014"),
+                new Motorcycle(29, "8A6VCTY78R1684562", "Victory", "Gunner-1800", "2011"));
         }
     }
 }

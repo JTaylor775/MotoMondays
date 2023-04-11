@@ -21,18 +21,21 @@ namespace MotoMondays.Models
         [DisplayName("User Id Number")]
         public int UserID { get; set; }
         public User User { get; set; }
+        public int MotorcycleID { get; set; }
+        public Motorcycle Motorcycle { get; set; }
 
         public MaintenanceTicket()
         {
         }
 
-        public MaintenanceTicket(int maintenanceTicketId, string ticketDescription, DateTime dateSubmitted, bool completed, int userId)
+        public MaintenanceTicket(int maintenanceTicketId, string ticketDescription, DateTime dateSubmitted, bool completed, int userId, int motorcycleId)
         {
             MaintenanceTicketID = maintenanceTicketId;
             TicketDescription = ticketDescription;
             DateSubmitted = dateSubmitted;
             Completed = completed;
             UserID = userId;
+            MotorcycleID = motorcycleId;
         }
     }
 }

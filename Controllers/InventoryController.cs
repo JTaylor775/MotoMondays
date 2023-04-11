@@ -10,23 +10,23 @@ using MotoMondays.Models;
 
 namespace MotoMondays.Controllers
 {
-    public class InventorieController : Controller
+    public class InventoryController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public InventorieController(ApplicationDbContext context)
+        public InventoryController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Inventorie
+        // GET: Inventory
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Inventories.Include(i => i.Motorcycles);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Inventorie/Details/5
+        // GET: Inventory/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,14 +45,14 @@ namespace MotoMondays.Controllers
             return View(inventory);
         }
 
-        // GET: Inventorie/Create
+        // GET: Inventory/Create
         public IActionResult Create()
         {
             ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "Manufacturer");
             return View();
         }
 
-        // POST: Inventorie/Create
+        // POST: Inventory/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -69,7 +69,7 @@ namespace MotoMondays.Controllers
             return View(inventory);
         }
 
-        // GET: Inventorie/Edit/5
+        // GET: Inventory/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,7 +86,7 @@ namespace MotoMondays.Controllers
             return View(inventory);
         }
 
-        // POST: Inventorie/Edit/5
+        // POST: Inventory/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -122,7 +122,7 @@ namespace MotoMondays.Controllers
             return View(inventory);
         }
 
-        // GET: Inventorie/Delete/5
+        // GET: Inventory/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,7 +141,7 @@ namespace MotoMondays.Controllers
             return View(inventory);
         }
 
-        // POST: Inventorie/Delete/5
+        // POST: Inventory/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
