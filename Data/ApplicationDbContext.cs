@@ -144,5 +144,7 @@ namespace MotoMondays.Data
                 new Motorcycle(32, "5A2HNDA56K1536846", "Honda", "CBR-500RR", "2014"),
                 new Motorcycle(29, "8A6VCTY78R1684562", "Victory", "Gunner-1800", "2011"));
         }
+
+        public DbSet<MotoMondays.Models.Schedule> Schedule { get; set; }
     }
 }

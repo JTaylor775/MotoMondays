@@ -12,6 +12,23 @@ a {
   color: #0366d6;
 }
 
+h1 {
+   color: white;
+}
+
+.wrapper {
+    background-color: grey;
+}
+
+img {
+    width: 500px;
+    height: auto;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
@@ -59,8 +76,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: grey;
 }
 .footer {
   position: absolute;
