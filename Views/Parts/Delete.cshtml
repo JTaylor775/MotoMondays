@@ -11,16 +11,25 @@
     <h4>Part</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PartName)
+        @if (User.IsInRole("Administrator"))
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PartID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PartID)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            <h6 style="font-weight: bold">Part Name</h6>
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PartName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.InStock)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.InStock)
         </dd>
     </dl>

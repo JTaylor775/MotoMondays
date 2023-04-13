@@ -10,8 +10,8 @@ using MotoMondays.Data;
 namespace MotoMondays.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230403171612_MotorcyclesAndInventory")]
-    partial class MotorcyclesAndInventory
+    [Migration("20230413155037_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -196,6 +196,9 @@ namespace MotoMondays.Migrations
                     b.Property<DateTime>("DateSubmitted")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("MotorcycleID")
+                        .HasColumnType("int");
+
                     b.Property<string>("TicketDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -204,6 +207,8 @@ namespace MotoMondays.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("MaintenanceTicketID");
+
+                    b.HasIndex("MotorcycleID");
 
                     b.HasIndex("UserID");
 
@@ -215,6 +220,7 @@ namespace MotoMondays.Migrations
                             MaintenanceTicketID = 1,
                             Completed = false,
                             DateSubmitted = new DateTime(2023, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MotorcycleID = 32,
                             TicketDescription = "Oil Change",
                             UserID = 2
                         },
@@ -223,6 +229,7 @@ namespace MotoMondays.Migrations
                             MaintenanceTicketID = 2,
                             Completed = true,
                             DateSubmitted = new DateTime(2023, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MotorcycleID = 29,
                             TicketDescription = "Tire Change",
                             UserID = 2
                         },
@@ -231,6 +238,7 @@ namespace MotoMondays.Migrations
                             MaintenanceTicketID = 3,
                             Completed = false,
                             DateSubmitted = new DateTime(2023, 3, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MotorcycleID = 29,
                             TicketDescription = "Transmition rebuild",
                             UserID = 4
                         });
@@ -279,6 +287,22 @@ namespace MotoMondays.Migrations
                             ModelType = "GSXR600",
                             VINNumber = "9B2SZKI72C3868341",
                             Year = "2015"
+                        },
+                        new
+                        {
+                            MotorcycleID = 32,
+                            Manufacturer = "Honda",
+                            ModelType = "CBR-500RR",
+                            VINNumber = "5A2HNDA56K1536846",
+                            Year = "2014"
+                        },
+                        new
+                        {
+                            MotorcycleID = 29,
+                            Manufacturer = "Victory",
+                            ModelType = "Gunner-1800",
+                            VINNumber = "8A6VCTY78R1684562",
+                            Year = "2011"
                         });
                 });
 
@@ -299,6 +323,44 @@ namespace MotoMondays.Migrations
                     b.HasKey("PartID");
 
                     b.ToTable("Parts");
+
+                    b.HasData(
+                        new
+                        {
+                            PartID = 10,
+                            InStock = true,
+                            PartName = "600cc Engine"
+                        },
+                        new
+                        {
+                            PartID = 20,
+                            InStock = true,
+                            PartName = "600cc transmission"
+                        },
+                        new
+                        {
+                            PartID = 30,
+                            InStock = false,
+                            PartName = "600cc Forks"
+                        },
+                        new
+                        {
+                            PartID = 32,
+                            InStock = true,
+                            PartName = "400cc Stunt Cage"
+                        },
+                        new
+                        {
+                            PartID = 40,
+                            InStock = false,
+                            PartName = "Road King Saddles Bag(Set)"
+                        },
+                        new
+                        {
+                            PartID = 45,
+                            InStock = true,
+                            PartName = "Harley Crank Shaft"
+                        });
                 });
 
             modelBuilder.Entity("MotoMondays.Models.Role", b =>
@@ -333,21 +395,21 @@ namespace MotoMondays.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "39a99185-b10c-489b-ab67-b906d90cbb47",
+                            ConcurrencyStamp = "e2a63a02-ff18-4a5b-bf89-02c24702e04f",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "f89fef1e-e52b-4f9d-98e9-20b8bc7d5b8b",
+                            ConcurrencyStamp = "de740e3b-d59b-49b7-aa45-6dde6ac9445c",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "d7927823-94a9-418a-961b-d1e6780ff085",
+                            ConcurrencyStamp = "3a552cb6-26b0-4615-a21f-c89ecb339b0d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -484,7 +546,7 @@ namespace MotoMondays.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f06b9418-dea5-4584-aab4-10e73ecadaa4",
+                            ConcurrencyStamp = "340a08b3-cbb5-4ac7-9772-2a11a9935ba5",
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jdoe@gmail.com",
                             EmailConfirmed = false,
@@ -493,10 +555,10 @@ namespace MotoMondays.Migrations
                             LockoutEnabled = false,
                             MiddleName = "Dee",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFuoCBTwynmI402uQi27gSLdmXIyMqRBzx6HyzkU08bkq+bn/53oJ1462pcn+AuHow==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP7U4oqcuy2xV5C9yAH0l2zhQK1WFCnJydlMMmka7AqwmMglQWKeUTT6IOTlV90/mw==",
                             PhoneNumber = "402-867-5309",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "941e9392-5add-4d63-98e0-21350d087402",
+                            SecurityStamp = "fe8e754c-4bd3-4964-94ab-30b0af7565c1",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -504,7 +566,7 @@ namespace MotoMondays.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e6176d98-7112-4e67-99d2-404d226e8ef6",
+                            ConcurrencyStamp = "675f8c0f-08b7-48f4-b01e-5b3e648645ae",
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "anel@gmail.com",
                             EmailConfirmed = false,
@@ -513,10 +575,10 @@ namespace MotoMondays.Migrations
                             LockoutEnabled = false,
                             MiddleName = "Jones",
                             NormalizedUserName = "EMPLOYEE",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDY9KtIQ7649RSSQThREPN7WlfP1r0ckcTPU4urzsuU02GE1THhJ8rIm59BXcVM6gA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBcwnEOWwiKWWJOFC8S6pdvKuCN/BpLRY3Zq+bsS0ulm+BF3qhXoEFbs3sk1mWvqFA==",
                             PhoneNumber = "402-111-9999",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b0b08939-163a-46cc-83c0-e566412beb25",
+                            SecurityStamp = "6870faeb-6dbd-4d17-b947-ce4552424ee1",
                             TwoFactorEnabled = false,
                             UserName = "employee"
                         },
@@ -524,7 +586,7 @@ namespace MotoMondays.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00caac02-a534-4bf8-b5e4-ba39ca0ca46f",
+                            ConcurrencyStamp = "fd007706-2de3-418f-ba9c-528fd2d553d1",
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "bbarns@gmail.com",
                             EmailConfirmed = false,
@@ -533,10 +595,10 @@ namespace MotoMondays.Migrations
                             LockoutEnabled = false,
                             MiddleName = "Bob",
                             NormalizedUserName = "CUSTOMER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDHlAHzSc+59YKcG5O3paDZSudIR7+ylwyPb4jOEvtEGPiMod87nG8tV621LGygRvw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH0GrTL3P8gXW5YjqFQNnhn5jYIWTp33WHrigxmVwkMcNI8ZcuHLKZsJ1gsdGGv9bw==",
                             PhoneNumber = "402-789-1234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0a62dc85-d2f5-437f-820e-82a02f6f041a",
+                            SecurityStamp = "d31d14d3-8e14-46d2-b72d-de8c7482cf3d",
                             TwoFactorEnabled = false,
                             UserName = "customer"
                         },
@@ -544,7 +606,7 @@ namespace MotoMondays.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4c2f837b-5ee2-4b8f-a7bf-727c06e175e3",
+                            ConcurrencyStamp = "7692ad2e-014e-4b2f-bc14-a52a63901e08",
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "zrothson@gmail.com",
                             EmailConfirmed = false,
@@ -553,10 +615,10 @@ namespace MotoMondays.Migrations
                             LockoutEnabled = false,
                             MiddleName = "Jones",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKul2b8R7yZACf+KiKDpTdf7odv46NS34WyG9iHZ12mK+HDhgUSmDaYiQyaeSmfwHg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELzA1I2AhYGkWPU+oHiQgrTmZq0cJBXP3gfWYEO3n7QXMDxwAGBUKqNM2NIxPm3j7Q==",
                             PhoneNumber = "402-222-8888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2d65261e-20c0-4596-8e2e-7736b886bb2d",
+                            SecurityStamp = "52d47587-58bd-40a7-91d3-3d3daccb22fe",
                             TwoFactorEnabled = false,
                             UserName = "user"
                         });
@@ -626,11 +688,19 @@ namespace MotoMondays.Migrations
 
             modelBuilder.Entity("MotoMondays.Models.MaintenanceTicket", b =>
                 {
+                    b.HasOne("MotoMondays.Models.Motorcycle", "Motorcycle")
+                        .WithMany()
+                        .HasForeignKey("MotorcycleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MotoMondays.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Motorcycle");
 
                     b.Navigation("User");
                 });

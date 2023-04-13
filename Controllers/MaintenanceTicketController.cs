@@ -49,6 +49,8 @@ namespace MotoMondays.Controllers
         public IActionResult Create()
         {
             ViewData["UserID"] = new SelectList(_context.Users, "Id", "FirstName");
+            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "MotorcycleID");
+
             return View();
         }
 
@@ -66,6 +68,7 @@ namespace MotoMondays.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserID"] = new SelectList(_context.Users, "Id", "FirstName", maintenanceTicket.UserID);
+            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "MotorcycleID", maintenanceTicket.MotorcycleID);
             return View(maintenanceTicket);
         }
 
@@ -83,6 +86,7 @@ namespace MotoMondays.Controllers
                 return NotFound();
             }
             ViewData["UserID"] = new SelectList(_context.Users, "Id", "FirstName", maintenanceTicket.UserID);
+            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "MotorcycleID", maintenanceTicket.MotorcycleID);
             return View(maintenanceTicket);
         }
 
@@ -119,6 +123,7 @@ namespace MotoMondays.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserID"] = new SelectList(_context.Users, "Id", "FirstName", maintenanceTicket.UserID);
+            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "MotorcycleID", maintenanceTicket.MotorcycleID);
             return View(maintenanceTicket);
         }
 

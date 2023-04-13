@@ -22,7 +22,7 @@ namespace MotoMondays.Controllers
         // GET: Inventory
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Inventories.Include(i => i.Motorcycles);
+            var applicationDbContext = _context.Inventories.Include(i => i.Motorcycle);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace MotoMondays.Controllers
             }
 
             var inventory = await _context.Inventories
-                .Include(i => i.Motorcycles)
+                .Include(i => i.Motorcycle)
                 .FirstOrDefaultAsync(m => m.InventoryId == id);
             if (inventory == null)
             {
@@ -131,7 +131,7 @@ namespace MotoMondays.Controllers
             }
 
             var inventory = await _context.Inventories
-                .Include(i => i.Motorcycles)
+                .Include(i => i.Motorcycle)
                 .FirstOrDefaultAsync(m => m.InventoryId == id);
             if (inventory == null)
             {

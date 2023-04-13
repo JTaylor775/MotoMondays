@@ -4,20 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Current Motorcycles</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add New Motorcycle</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MotorcycleID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VINNumber)
-            </th>
+            @if (User.IsInRole("Administrator"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.MotorcycleID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VINNumber)
+                </th>
+            }
             <th>
                 @Html.DisplayNameFor(model => model.Manufacturer)
             </th>
@@ -33,12 +36,15 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MotorcycleID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VINNumber)
-            </td>
+            @if (User.IsInRole("Administrator"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.MotorcycleID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VINNumber)
+                </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.Manufacturer)
             </td>
@@ -49,9 +55,12 @@
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MotorcycleID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MotorcycleID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MotorcycleID">Delete</a>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <a asp-action="Details" asp-route-id="@item.MotorcycleID">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.MotorcycleID">Delete</a>
+                    <a asp-controller="Inventory" asp-action="Create" asp-route-id="@item.MotorcycleID">Add To Inventory</a>
+                }
             </td>
         </tr>
 }

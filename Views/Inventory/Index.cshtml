@@ -11,20 +11,21 @@
 <p>
     @if (User.IsInRole("Administrator"))
     {
-        <a asp-action="Create">Create New</a>
+        <a asp-controller="Motorcycle" asp-action="Create">Add New Motorcycle</a>
+        <a asp-controller="Inventory" asp-action="Create">Add Current Motorcycle</a>
     }
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Motorcycles.Manufacturer)
+                @Html.DisplayNameFor(model => model.Motorcycle.Manufacturer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Motorcycles.ModelType)
+                @Html.DisplayNameFor(model => model.Motorcycle.ModelType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Motorcycles.Year)
+                @Html.DisplayNameFor(model => model.Motorcycle.Year)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Miles)
@@ -40,13 +41,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Motorcycles.Manufacturer)
+                    @Html.DisplayFor(modelItem => item.Motorcycle.Manufacturer)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Motorcycles.ModelType)
+                    @Html.DisplayFor(modelItem => item.Motorcycle.ModelType)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Motorcycles.Year)
+                    @Html.DisplayFor(modelItem => item.Motorcycle.Year)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Miles)

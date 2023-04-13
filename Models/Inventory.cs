@@ -11,7 +11,7 @@ namespace MotoMondays.Models
     {
         public int InventoryId { get; set; }
         public int MotorcycleID { get; set; }
-        public Motorcycle Motorcycles { get; set; }
+        public Motorcycle Motorcycle { get; set; }
         public decimal Miles { get; set; }
         [Required(ErrorMessage = "Preowned is Required")]
         [DisplayName("Preowned")]

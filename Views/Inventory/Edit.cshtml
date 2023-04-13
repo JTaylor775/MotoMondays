@@ -13,9 +13,10 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="InventoryId" />
+            <input type="hidden" asp-for="MotorcycleID" />
             <div class="form-group">
                 <label asp-for="MotorcycleID" class="control-label"></label>
-                <select asp-for="MotorcycleID" class="form-control" asp-items="ViewBag.MotorcycleID"></select>
+                <input asp-for="MotorcycleID" class="form-control" asp-items="ViewBag.MotorcycleID" disabled />
                 <span asp-validation-for="MotorcycleID" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -13,11 +13,12 @@ a {
 }
 
 h1 {
-   color: white;
+   color: maroon;
+   font-weight: bold;
 }
 
 .wrapper {
-    background-color: grey;
+    background-color: blanchedalmond;
 }
 
 img {
@@ -78,7 +79,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-color: grey;
+    background-color: blanchedalmond;
 }
 .footer {
   position: absolute;

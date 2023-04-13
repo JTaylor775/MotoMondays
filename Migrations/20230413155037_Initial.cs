@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MotoMondays.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,7 +61,7 @@ namespace MotoMondays.Migrations
                     VINNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Manufacturer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ModelType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Year = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Year = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,25 +189,25 @@ namespace MotoMondays.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employee",
+                name: "Schedule",
                 columns: table => new
                 {
-                    EmployeeID = table.Column<int>(type: "int", nullable: false)
+                    ScheduleID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ScheduleDays = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ScheduleHours = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Wage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    UserID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employee", x => x.EmployeeID);
+                    table.PrimaryKey("PK_Schedule", x => x.ScheduleID);
                     table.ForeignKey(
-                        name: "FK_Employee_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Schedule_AspNetUsers_UserID",
+                        column: x => x.UserID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -216,7 +216,7 @@ namespace MotoMondays.Migrations
                 {
                     InventoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MotorcyclesMotorcycleID = table.Column<int>(type: "int", nullable: true),
+                    MotorcycleID = table.Column<int>(type: "int", nullable: false),
                     Miles = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PreOwned = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -224,11 +224,11 @@ namespace MotoMondays.Migrations
                 {
                     table.PrimaryKey("PK_Inventories", x => x.InventoryId);
                     table.ForeignKey(
-                        name: "FK_Inventories_Motorcycles_MotorcyclesMotorcycleID",
-                        column: x => x.MotorcyclesMotorcycleID,
+                        name: "FK_Inventories_Motorcycles_MotorcycleID",
+                        column: x => x.MotorcycleID,
                         principalTable: "Motorcycles",
                         principalColumn: "MotorcycleID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -241,7 +241,7 @@ namespace MotoMondays.Migrations
                     DateSubmitted = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Completed = table.Column<bool>(type: "bit", nullable: true),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    EmployeeID = table.Column<int>(type: "int", nullable: true)
+                    MotorcycleID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -251,13 +251,13 @@ namespace MotoMondays.Migrations
                         column: x => x.UserID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MaintenanceTickets_Employee_EmployeeID",
-                        column: x => x.EmployeeID,
-                        principalTable: "Employee",
-                        principalColumn: "EmployeeID",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_MaintenanceTickets_Motorcycles_MotorcycleID",
+                        column: x => x.MotorcycleID,
+                        principalTable: "Motorcycles",
+                        principalColumn: "MotorcycleID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -265,9 +265,9 @@ namespace MotoMondays.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "efbdedec-f79c-41d7-977e-c3c7272bbe21", "Administrator", "ADMINISTRATOR" },
-                    { 2, "259a752a-98ad-4e00-a6bf-0804af34a758", "Employee", "EMPLOYEE" },
-                    { 3, "c9590341-309a-434c-b3ec-33dcdf86682a", "User", "USER" }
+                    { 3, "3a552cb6-26b0-4615-a21f-c89ecb339b0d", "User", "USER" },
+                    { 2, "de740e3b-d59b-49b7-aa45-6dde6ac9445c", "Employee", "EMPLOYEE" },
+                    { 1, "e2a63a02-ff18-4a5b-bf89-02c24702e04f", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -275,28 +275,34 @@ namespace MotoMondays.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "MiddleName", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "22ce2e9a-730b-4e5b-9d76-bd5acd157814", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "jdoe@gmail.com", false, "John", "Doe", false, null, "Dee", null, "ADMIN", "AQAAAAEAACcQAAAAEO/jdiDVAHS2OjBU0p+HY19au8gmCOw8Ta+jSsbqtCn5N/2qIMefXjlclDwqYKKZLg==", "402-867-5309", false, "7d4a721d-c631-4e5e-9849-20444a74dec2", false, "admin" },
-                    { 2, 0, "29ac7472-b900-49d1-bf86-1bdd409df36e", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "anel@gmail.com", false, "Alex", "Nelson", false, null, "Jones", null, "EMPLOYEE", "AQAAAAEAACcQAAAAEE8qYzL0cAyTNqIFE0UmzC1260h7f8gC3dVkg/hrSI/+8RCFqzCg6f+UdfTw5YEc+w==", "402-111-9999", false, "f8bc2deb-5118-4c30-b29f-f32ea5aa74b7", false, "employee" },
-                    { 3, 0, "c50b61f2-58b1-4901-b5ca-b98fd4c00986", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bbarns@gmail.com", false, "Bill", "Barns", false, null, "Bob", null, "CUSTOMER", "AQAAAAEAACcQAAAAEDJxn3ME3RnOIXEMSG2GySIcMCKYNA9XB8My0oNSsRZ+MFghMTu1W2UFyy0BRuchnQ==", "402-789-1234", false, "a99c498f-9269-4eb3-97ec-fb1c39224bc3", false, "customer" },
-                    { 4, 0, "dd3603d7-ba03-46ed-97c1-e19c2a4b5dc2", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "zrothson@gmail.com", false, "Zack", "Rothson", false, null, "Jones", null, "USER", "AQAAAAEAACcQAAAAEI031hTd7MQkT/Yav9SaQ85ELZMq05r6ji5UbsBfEIkkilwVCk7uO3YXXFJivnTs/Q==", "402-222-8888", false, "35488980-b2ab-454a-aaec-49b9eb8d39dd", false, "user" }
+                    { 4, 0, "7692ad2e-014e-4b2f-bc14-a52a63901e08", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "zrothson@gmail.com", false, "Zack", "Rothson", false, null, "Jones", null, "USER", "AQAAAAEAACcQAAAAELzA1I2AhYGkWPU+oHiQgrTmZq0cJBXP3gfWYEO3n7QXMDxwAGBUKqNM2NIxPm3j7Q==", "402-222-8888", false, "52d47587-58bd-40a7-91d3-3d3daccb22fe", false, "user" },
+                    { 2, 0, "675f8c0f-08b7-48f4-b01e-5b3e648645ae", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "anel@gmail.com", false, "Alex", "Nelson", false, null, "Jones", null, "EMPLOYEE", "AQAAAAEAACcQAAAAEBcwnEOWwiKWWJOFC8S6pdvKuCN/BpLRY3Zq+bsS0ulm+BF3qhXoEFbs3sk1mWvqFA==", "402-111-9999", false, "6870faeb-6dbd-4d17-b947-ce4552424ee1", false, "employee" },
+                    { 1, 0, "340a08b3-cbb5-4ac7-9772-2a11a9935ba5", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "jdoe@gmail.com", false, "John", "Doe", false, null, "Dee", null, "ADMIN", "AQAAAAEAACcQAAAAEP7U4oqcuy2xV5C9yAH0l2zhQK1WFCnJydlMMmka7AqwmMglQWKeUTT6IOTlV90/mw==", "402-867-5309", false, "fe8e754c-4bd3-4964-94ab-30b0af7565c1", false, "admin" },
+                    { 3, 0, "fd007706-2de3-418f-ba9c-528fd2d553d1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bbarns@gmail.com", false, "Bill", "Barns", false, null, "Bob", null, "CUSTOMER", "AQAAAAEAACcQAAAAEH0GrTL3P8gXW5YjqFQNnhn5jYIWTp33WHrigxmVwkMcNI8ZcuHLKZsJ1gsdGGv9bw==", "402-789-1234", false, "d31d14d3-8e14-46d2-b72d-de8c7482cf3d", false, "customer" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Employee",
-                columns: new[] { "EmployeeID", "ScheduleDays", "ScheduleHours", "UserId", "Wage" },
+                table: "Motorcycles",
+                columns: new[] { "MotorcycleID", "Manufacturer", "ModelType", "VINNumber", "Year" },
                 values: new object[,]
                 {
-                    { 1, "MTWTF", "9-5", null, 12.50m },
-                    { 2, "MWT", "8-4", null, 11.25m }
+                    { 12, "Yamaha", "YZF-R6", "4S3YMHH68B2123456", "2006" },
+                    { 29, "Victory", "Gunner-1800", "8A6VCTY78R1684562", "2011" },
+                    { 32, "Honda", "CBR-500RR", "5A2HNDA56K1536846", "2014" },
+                    { 27, "Suzuki", "GSXR600", "9B2SZKI72C3868341", "2015" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Inventories",
-                columns: new[] { "InventoryId", "Miles", "MotorcyclesMotorcycleID", "PreOwned" },
+                table: "Parts",
+                columns: new[] { "PartID", "InStock", "PartName" },
                 values: new object[,]
                 {
-                    { 1, 100m, null, false },
-                    { 2, 12000m, null, true }
+                    { 30, false, "600cc Forks" },
+                    { 45, true, "Harley Crank Shaft" },
+                    { 20, true, "600cc transmission" },
+                    { 10, true, "600cc Engine" },
+                    { 32, true, "400cc Stunt Cage" },
+                    { 40, false, "Road King Saddles Bag(Set)" }
                 });
 
             migrationBuilder.InsertData(
@@ -311,13 +317,31 @@ namespace MotoMondays.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "MaintenanceTickets",
-                columns: new[] { "MaintenanceTicketID", "Completed", "DateSubmitted", "EmployeeID", "TicketDescription", "UserID" },
+                table: "Inventories",
+                columns: new[] { "InventoryId", "Miles", "MotorcycleID", "PreOwned" },
                 values: new object[,]
                 {
-                    { 1, false, new DateTime(2023, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Oil Change", 2 },
-                    { 2, true, new DateTime(2023, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Tire Change", 2 },
-                    { 3, false, new DateTime(2023, 3, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Transmition rebuild", 4 }
+                    { 1, 100m, 12, false },
+                    { 2, 12000m, 27, true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MaintenanceTickets",
+                columns: new[] { "MaintenanceTicketID", "Completed", "DateSubmitted", "MotorcycleID", "TicketDescription", "UserID" },
+                values: new object[,]
+                {
+                    { 1, false, new DateTime(2023, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 32, "Oil Change", 2 },
+                    { 2, true, new DateTime(2023, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 29, "Tire Change", 2 },
+                    { 3, false, new DateTime(2023, 3, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 29, "Transmition rebuild", 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Schedule",
+                columns: new[] { "ScheduleID", "ScheduleDays", "ScheduleHours", "UserID", "Wage" },
+                values: new object[,]
+                {
+                    { 1, "MTWTF", "9-5", 1, 12.50m },
+                    { 2, "MWT", "8-4", 2, 11.25m }
                 });
 
             migrationBuilder.CreateIndex(
@@ -360,23 +384,23 @@ namespace MotoMondays.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_UserId",
-                table: "Employee",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Inventories_MotorcyclesMotorcycleID",
+                name: "IX_Inventories_MotorcycleID",
                 table: "Inventories",
-                column: "MotorcyclesMotorcycleID");
+                column: "MotorcycleID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MaintenanceTickets_EmployeeID",
+                name: "IX_MaintenanceTickets_MotorcycleID",
                 table: "MaintenanceTickets",
-                column: "EmployeeID");
+                column: "MotorcycleID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MaintenanceTickets_UserID",
                 table: "MaintenanceTickets",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedule_UserID",
+                table: "Schedule",
                 column: "UserID");
         }
 
@@ -407,13 +431,13 @@ namespace MotoMondays.Migrations
                 name: "Parts");
 
             migrationBuilder.DropTable(
+                name: "Schedule");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Motorcycles");
-
-            migrationBuilder.DropTable(
-                name: "Employee");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

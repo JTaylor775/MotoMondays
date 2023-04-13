@@ -11,7 +11,7 @@ namespace MotoMondays.Models
     {
         public int PartID { get; set; }
         [Required(ErrorMessage = "Part name is required")]
-        [DisplayName("Date Submitted")]
+        [DisplayName("Part Name")]
         public string PartName { get; set; }
         [Required(ErrorMessage = "In stock is required")]
         [DisplayName("In stock")]
