@@ -6,7 +6,7 @@
 
 <h1>Motorcycle Service Shop</h1>
 
-@if (User.IsInRole("Administrator"))
+@if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
 {
     <p>
         <a asp-action="Create">Create New</a>
@@ -58,7 +58,7 @@
                     @Html.DisplayFor(modelItem => item.MotorcycleID)
                 </td>
                 <td>
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                     {
                         <a asp-action="Edit" asp-route-id="@item.MaintenanceTicketID">Edit</a>
                         <a asp-action="Details" asp-route-id="@item.MaintenanceTicketID">Details</a>

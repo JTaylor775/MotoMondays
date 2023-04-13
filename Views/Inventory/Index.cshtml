@@ -9,9 +9,9 @@
 <h1>Inventory</h1>
 
 <p>
-    @if (User.IsInRole("Administrator"))
+    @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
     {
-        <a asp-controller="Motorcycle" asp-action="Create">Add New Motorcycle</a>
+        <a asp-controller="Motorcycle" asp-action="Create">Add New Motorcycle</a><hr />
         <a asp-controller="Inventory" asp-action="Create">Add Current Motorcycle</a>
     }
 </p>
@@ -56,7 +56,7 @@
                     @Html.DisplayFor(modelItem => item.PreOwned)
                 </td>
                 <td>
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                     {
                         <a asp-action="Edit" asp-route-id="@item.InventoryId">Edit</a>
                         

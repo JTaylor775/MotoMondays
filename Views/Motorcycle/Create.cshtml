@@ -40,8 +40,14 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to Motorcycle list</a>
 </div>
+@if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+{
+    <div>
+        <a asp-controller="Inventory" asp-action="Index">Back to Inventory</a>
+    </div>
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

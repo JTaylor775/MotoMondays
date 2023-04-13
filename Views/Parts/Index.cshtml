@@ -15,7 +15,7 @@
 <table class="table">
     <thead>
         <tr>
-            @if (User.IsInRole("Administrator"))
+            @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
             {
                 <th>
                     @Html.DisplayNameFor(model => model.PartID)
@@ -35,7 +35,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                @if (User.IsInRole("Administrator"))
+                @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                 {
                     <td>
                         @Html.DisplayFor(modelItem => item.PartID)
@@ -50,7 +50,7 @@
                 <td>
                     @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                     {
-                        <a asp-action="Edit" asp-route-id="@item.PartID">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.PartID">Edit</a><br />
                         <a asp-action="Delete" asp-route-id="@item.PartID">Delete</a>
                     }
                 </td>

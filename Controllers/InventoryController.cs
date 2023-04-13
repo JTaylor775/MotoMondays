@@ -65,7 +65,7 @@ namespace MotoMondays.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "Manufacturer", inventory.MotorcycleID);
+            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "MotorcycleID", inventory.MotorcycleID);
             return View(inventory);
         }
 
@@ -82,7 +82,7 @@ namespace MotoMondays.Controllers
             {
                 return NotFound();
             }
-            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "Manufacturer", inventory.MotorcycleID);
+            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "MotorcycleID", inventory.MotorcycleID);
             return View(inventory);
         }
 
@@ -118,7 +118,7 @@ namespace MotoMondays.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "Manufacturer", inventory.MotorcycleID);
+            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "MotorcycleID", inventory.MotorcycleID);
             return View(inventory);
         }
 

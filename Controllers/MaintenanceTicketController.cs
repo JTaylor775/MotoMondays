@@ -59,7 +59,7 @@ namespace MotoMondays.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaintenanceTicketID,TicketDescription,DateSubmitted,Completed,UserID")] MaintenanceTicket maintenanceTicket)
+        public async Task<IActionResult> Create([Bind("MaintenanceTicketID,TicketDescription,DateSubmitted,Completed,UserID, MotorcycleID")] MaintenanceTicket maintenanceTicket)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace MotoMondays.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaintenanceTicketID,TicketDescription,DateSubmitted,Completed,UserID")] MaintenanceTicket maintenanceTicket)
+        public async Task<IActionResult> Edit(int id, [Bind("MaintenanceTicketID,TicketDescription,DateSubmitted,Completed,UserID, MotorcycleID")] MaintenanceTicket maintenanceTicket)
         {
             if (id != maintenanceTicket.MaintenanceTicketID)
             {

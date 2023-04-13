@@ -12,7 +12,7 @@
 <table class="table">
     <thead>
         <tr>
-            @if (User.IsInRole("Administrator"))
+            @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
             {
                 <th>
                     @Html.DisplayNameFor(model => model.MotorcycleID)
@@ -36,7 +36,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            @if (User.IsInRole("Administrator"))
+            @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
             {
                 <td>
                     @Html.DisplayFor(modelItem => item.MotorcycleID)
@@ -55,11 +55,12 @@
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
-                @if (User.IsInRole("Administrator"))
+                @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                 {
                     <a asp-action="Details" asp-route-id="@item.MotorcycleID">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.MotorcycleID">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.MotorcycleID">Delete</a><br />
                     <a asp-controller="Inventory" asp-action="Create" asp-route-id="@item.MotorcycleID">Add To Inventory</a>
+                    
                 }
             </td>
         </tr>
