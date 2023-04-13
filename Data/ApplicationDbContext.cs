@@ -143,6 +143,14 @@ namespace MotoMondays.Data
                 new Motorcycle(27, "9B2SZKI72C3868341", "Suzuki", "GSXR600","2015"),
                 new Motorcycle(32, "5A2HNDA56K1536846", "Honda", "CBR-500RR", "2014"),
                 new Motorcycle(29, "8A6VCTY78R1684562", "Victory", "Gunner-1800", "2011"));
+
+            builder.Entity<Part>().HasData(
+                new Part(10, "600cc Engine", true),
+                new Part(20, "600cc transmission", true),
+                new Part(30, "600cc Forks", false),
+                new Part(32, "400cc Stunt Cage", true),
+                new Part(40, "Road King Saddles Bag(Set)", false),
+                new Part(45, "Harley Crank Shaft", true));
         }
 
         public DbSet<MotoMondays.Models.Schedule> Schedule { get; set; }

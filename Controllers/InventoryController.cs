@@ -48,7 +48,7 @@ namespace MotoMondays.Controllers
         // GET: Inventory/Create
         public IActionResult Create()
         {
-            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "Manufacturer");
+            ViewData["MotorcycleID"] = new SelectList(_context.Motorcycles, "MotorcycleID", "MotorcycleID");
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace MotoMondays.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InventoryId,MotorcycleID,Miles,PreOwned")] Inventory inventory)
         {
             if (ModelState.IsValid)

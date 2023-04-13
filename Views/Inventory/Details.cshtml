@@ -10,22 +10,28 @@
     <h4>Inventory</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Motorcycles)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycles.Manufacturer)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Motorcycles.Manufacturer)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Motorcycles.ModelType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Motorcycles.ModelType)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Miles)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Miles)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PreOwned)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PreOwned)
         </dd>
     </dl>
