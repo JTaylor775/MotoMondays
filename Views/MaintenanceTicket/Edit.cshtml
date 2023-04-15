@@ -13,6 +13,8 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaintenanceTicketID" />
+            <input type="hidden" asp-for="UserID" />
+            <input type="hidden" asp-for="MotorcycleID" />
             <div class="form-group">
                 <label asp-for="TicketDescription" class="control-label"></label>
                 <input asp-for="TicketDescription" class="form-control" />
@@ -25,7 +27,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Completed" class="control-label"></label>
-                <input asp-for="Completed" class="form-control" />
+                <select asp-for="Completed" class="form-control">
+                    <option value="True">True</option>
+                    <option value="False">False</option>
+                </select>
                 <span asp-validation-for="Completed" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<MotoMondays.Models.MaintenanceTicket>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
+@inject UserManager<User> userManager
 
 @{
     ViewData["Title"] = "Index";
@@ -37,11 +40,16 @@
     <tbody>
         @foreach (var item in Model)
         {
-            //if (item.UserID === User.)
-            //{
-
-            //}
             <tr>
+                @*@if (signInManager.IsSignedIn(User))
+                {
+                    if (item.UserID == int.Parse(userManager.GetUserId(User)))
+                    {
+
+                    }
+                }*@
+
+
                 <td>
                     @Html.DisplayFor(modelItem => item.TicketDescription)
                 </td>
@@ -55,7 +63,7 @@
                     @Html.DisplayFor(modelItem => item.User.FirstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MotorcycleID)
+                    @Html.DisplayFor(modelItem => item.Motorcycle.MotorcycleID)
                 </td>
                 <td>
                     @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
@@ -64,7 +72,7 @@
                         <a asp-action="Details" asp-route-id="@item.MaintenanceTicketID">Details</a>
                         <a asp-action="Delete" asp-route-id="@item.MaintenanceTicketID">Delete</a>
                     }
-                    
+
                 </td>
             </tr>
         }

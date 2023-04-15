@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,16 +15,30 @@ namespace MotoMondays.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public MaintenanceTicketController(ApplicationDbContext context)
+        private UserManager<User> userManager;
+        private SignInManager<User> signInManager;
+
+        public MaintenanceTicketController(UserManager<User> usrMgr, SignInManager<User> signInMgr, ApplicationDbContext context)
         {
+            userManager = usrMgr;
+            signInManager = signInMgr;
             _context = context;
         }
 
         // GET: MaintenanceTicket
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.MaintenanceTickets.Include(m => m.User);
-            return View(await applicationDbContext.ToListAsync());
+            if (signInManager.IsSignedIn(User))
+            {
+                int userId = int.Parse(userManager.GetUserId(User));
+                var applicationDbContext = _context.MaintenanceTickets.Include(m => m.User).Include(m => m.Motorcycle).Where(m => m.UserID == userId);
+                if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                {
+                    applicationDbContext = _context.MaintenanceTickets.Include(m => m.User).Include(m => m.Motorcycle);
+                }
+                return View(await applicationDbContext.ToListAsync());
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: MaintenanceTicket/Details/5

@@ -15,6 +15,7 @@ namespace MotoMondays.Models
         [DisplayName("Description")]
         public string TicketDescription { get; set; }
         [DisplayName("Date Submitted")]
+        [DataType(DataType.Date)]
         public DateTime DateSubmitted { get; set; }
         public bool? Completed { get; set; }
         [Required(ErrorMessage = "User Id is required")]

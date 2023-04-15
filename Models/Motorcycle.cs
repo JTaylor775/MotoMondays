@@ -12,6 +12,8 @@ namespace MotoMondays.Models
         public int MotorcycleID { get; set; }
         [Required(ErrorMessage = "VIN number is Required")]
         [DisplayName("VIN Number")]
+        [RegularExpression(@"[0-9]{1}[A-Z]{4}[0-9]{1}[A-Z]{2}[0-9]{1}[A-Z]{3}[0-9]{5}",
+            ErrorMessage = "Invalid VIN Number. 9XXXX9XX9XXX99999")]
         public string VINNumber { get; set; }
         [Required(ErrorMessage = "Manufacturer is Required")]
         [DisplayName("Manufacturer")]
@@ -34,6 +36,11 @@ namespace MotoMondays.Models
             Manufacturer = manufacturer;
             ModelType = modelType;
             Year = year;
+        }
+
+        public override string ToString()
+        {
+            return Year + " " + Manufacturer + " " + ModelType;
         }
     }
 }
