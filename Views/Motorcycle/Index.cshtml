@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<MotoMondays.Models.Motorcycle>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
+@inject UserManager<User> userManager
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Current Motorcycles</h1>
-
-<p>
-    <a asp-action="Create">Add New Motorcycle</a>
-</p>
+@if (signInManager.IsSignedIn(User))
+{
+    <p>
+        <a asp-action="Create">Add New Motorcycle</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -34,36 +39,37 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => item.MotorcycleID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VINNumber)
-                </td>
-            }
-            <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModelType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
                 @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
                 {
-                    <a asp-action="Details" asp-route-id="@item.MotorcycleID">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.MotorcycleID">Delete</a><br />
-                    <a asp-controller="Inventory" asp-action="Create" asp-route-id="@item.MotorcycleID">Add To Inventory</a>
-                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MotorcycleID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VINNumber)
+                    </td>
                 }
-            </td>
-        </tr>
-}
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModelType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                    {
+                        <a asp-action="Details" asp-route-id="@item.MotorcycleID">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.MotorcycleID">Delete</a><br />
+                        <a asp-controller="Inventory" asp-action="Create" asp-route-id="@item.MotorcycleID">Add To Inventory</a>
+
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
